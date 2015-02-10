@@ -173,7 +173,7 @@ int CRtmpStream::SendFlvHeader(unsigned char *buf, int size) {
     pktType = bytestream_get_byte((const unsigned char **) &pHeader);
     pktSize = bytestream_get_be24((const unsigned char **) &pHeader);
     timestamp = bytestream_get_be24((const unsigned char **) &pHeader);
-    timestamp = bytestream_get_byte((const unsigned char **) &pHeader) << 24;
+    timestamp |= bytestream_get_byte((const unsigned char **) &pHeader) << 24;
     bytestream_get_be24((const unsigned char **) &pHeader);
 
     // 构造RTMP包
@@ -266,39 +266,3 @@ bool CRtmpStream::SendFlvFile(const char *filename) {
 
     return TRUE;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
